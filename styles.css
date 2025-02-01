@@ -1,0 +1,315 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    background-image: url(img.jpg);
+    background-size: cover;
+    background-position: center;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+}
+
+/* Pregunta inicial */
+.question {
+    text-align: center;
+    color: white;
+    background: rgba(255, 111, 97, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.question h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.buttons {
+    margin-top: 20px;
+}
+
+.buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+#yesBtn {
+    background: white;
+    color: #ff6f61;
+}
+
+#noBtn {
+    background: #ff6f61;
+    color: white;
+}
+
+/* Sobre */
+.envelope {
+    display: none; /* Oculto inicialmente */
+    position: relative;
+    width: 300px;
+    height: 200px;
+    background: #ff6f61;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transform-origin: top;
+    animation: openEnvelope 1s forwards;
+}
+
+.flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ff6f61;
+    border-radius: 10px;
+    transform-origin: top;
+    animation: openFlap 1s forwards;
+}
+
+.card-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: calc(100% - 40px);
+    height:auto;
+    overflow: hidden;
+    animation: slideOutCard 1.5s forwards;
+    animation-delay: 1s; /* Espera a que el sobre se abra */
+}
+
+/* Carta */
+.card {
+    width: 100%;
+    height: 300px; /* Altura fija inicial */
+    perspective: 1000px;
+    cursor: pointer;
+    position: relative;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    margin-top: 20px; /* Espacio entre el sobre y la carta */
+    transition: height 0.8s ease; /* Transición suave para la altura */
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s;
+    transform-origin: center;
+}
+
+.card:hover .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card:hover {
+    height: auto; /* Altura automática cuando se gira */
+    min-height: auto; /* Altura mínima para mostrar todo el contenido */
+}
+
+.card-front, .card-back {
+    width: 100%;
+    height: 100%; /* Ocupa el 100% del contenedor */
+    position: absolute;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Alinea el contenido en la parte superior */
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.card-front {
+    background: #ff6f61;
+    color: white;
+}
+
+.card-back {
+    background: white;
+    color: #333;
+    transform: rotateY(180deg);
+    justify-content: flex-start; /* Alinea el contenido en la parte superior */
+    padding-top: 40px; /* Espacio adicional para el contenido */
+}
+
+h1, h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+p {
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 1.5; /* Mejor espaciado entre líneas */
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background: #ff4a3d;
+}
+
+/* Corazones */
+#heartsContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.heart {
+    position: absolute;
+    color: #ff6f61;
+    font-size: 20px;
+    animation: fall linear infinite;
+}
+
+/* Estilos para el modal */
+.modal {
+    display: none; /* Oculto inicialmente */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegura que esté por encima de todo */
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    width: 100%;
+}
+
+.modal h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #ff6f61;
+}
+
+.modal p {
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.modal-buttons {
+    margin-top: 20px;
+}
+
+.modal-buttons button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+#acceptBtn {
+    background: #ff6f61;
+    color: white;
+}
+
+#rejectBtn {
+    background: white;
+    color: #ff6f61;
+    border: 1px solid #ff6f61;
+}
+
+
+
+@keyframes fall {
+    0% {
+        transform: translateY(-10%);
+    }
+    100% {
+        transform: translateY(110vh);
+    }
+}
+
+/* Animaciones */
+@keyframes openEnvelope {
+    0% {
+        transform: scaleY(0);
+    }
+    100% {
+        transform: scaleY(1);
+    }
+}
+
+@keyframes openFlap {
+    0% {
+        transform: rotateX(0deg);
+    }
+    100% {
+        transform: rotateX(180deg);
+    }
+}
+
+@keyframes slideOutCard {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-250px); /* La carta sale del sobre */
+    }
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 480px) {
+    .card {
+        height: 250px; /* Altura reducida para pantallas pequeñas */
+    }
+
+    .card:hover {
+        min-height: 400px; /* Altura mínima reducida para pantallas pequeñas */
+    }
+
+    h1, h2 {
+        font-size: 20px; /* Tamaño de fuente más pequeño */
+    }
+
+    p {
+        font-size: 14px; /* Tamaño de fuente más pequeño */
+    }
+
+    button {
+        font-size: 14px; /* Tamaño de fuente más pequeño */
+    }
+}
+
